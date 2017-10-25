@@ -13,13 +13,13 @@ function AmazonService(authService) {
 
 test('AmazonSearch', ()=> {
     //Arrange
-    const mockAmazonSearch = jest.fn()
+    const mock = jest.fn()
         .mockReturnValue({
             title:'JavaScript Good Ports',
             image:'/cover/xyzji.jps',
             isbn:'9781117891234'
         })
-    var app = new AmazonService(mockAmazonSearch)
+    var app = new AmazonService(mock)
 
     //Act
    
@@ -27,8 +27,8 @@ test('AmazonSearch', ()=> {
     var result = app.signIn(Search)
 
     //Assert
-    expect(mockAmazonSearch).toHaveBeenCalled()
-    expect(mockAmazonSearch).toHaveBeenCalledWith(Search)
+    expect(mock).toHaveBeenCalled()
+    expect(mock).toHaveBeenCalledWith(Search)
     expect(result).toHaveProperty('title')
     expect(result).toHaveProperty('image')
     expect(result).toHaveProperty('isbn')
