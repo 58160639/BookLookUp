@@ -29,8 +29,8 @@ test('AmazonSearch', ()=> {
     //Assert
     expect(mockAmazonSearch).toHaveBeenCalled()
     expect(mockAmazonSearch).toHaveBeenCalledWith(Search)
-    expect(result).toHaveProperty('name')
-    expect(result).toHaveProperty('cover')
+    expect(result).toHaveProperty('title')
+    expect(result).toHaveProperty('image')
     expect(result).toHaveProperty('isbn')
     expect(result.title).toBe('JavaScript Good Ports')
     expect(result.image).toBe('/cover/xyzji.jps')
