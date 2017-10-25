@@ -1,12 +1,12 @@
-function BookSearch(isbnService) {
-    this.isbnService = isbnService
+function AmazonService(authService) {
+    this.authService = authService
 
-    this.search = (name, cover,isbn) => {
-        var web = this.isbnService(name, cover,isbn)
+    this.signIn = (Search) => {
+        var book = this.authService(Search)
         return {
-            name: web.name,
-            cover: web.cover,
-            isbn: '978-1117891-234'
+            title: book.title,
+            image: book.image,
+            isbn: "9781117891234"
         }
     }
 }
@@ -15,26 +15,25 @@ test('AmazonSearch', ()=> {
     //Arrange
     const mockAmazonSearch = jest.fn()
         .mockReturnValue({
-            isbn:'978-1117891-234',
             title:'JavaScript Good Ports',
-            image:'/cover/xyzji.jpg'
+            image:'/cover/xyzji.jps',
+            isbn:'9781117891234'
         })
-    var app = new BookSearch(mockAmazonSearch)
+    var app = new AmazonService(mockAmazonSearch)
 
     //Act
-    var name = 'JavaScript Good Ports'
-    var cover = '/cover/xyzji.jpg'
-    var isbn = '978-1117891-234'
-    var result = app.search(name, cover,isbn)
+   
+    var Search = "9781117891234"
+    var result = app.signIn(Search)
 
     //Assert
     expect(mockAmazonSearch).toHaveBeenCalled()
-    expect(mockAmazonSearch).toHaveBeenCalledWith(name, cover,isbn)
+    expect(mockAmazonSearch).toHaveBeenCalledWith(Search)
     expect(result).toHaveProperty('name')
     expect(result).toHaveProperty('cover')
     expect(result).toHaveProperty('isbn')
-    expect(result.title).toEqual('JavaScript Good Ports')
-    expect(result.image).toEqual('/cover/xyzji.jpg')
-    expect(result.isbn).toEqual('978-1117891-234')
+    expect(result.title).toBe('JavaScript Good Ports')
+    expect(result.image).toBe('/cover/xyzji.jps')
+    expect(result.isbn).toHaveLength(13)
 
 })
